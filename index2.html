@@ -26,7 +26,7 @@
     .content {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       height: 90%;
       width: 100%;
@@ -64,11 +64,13 @@
       font-family: 'Montserrat', sans-serif;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       opacity: 0;
-      transition: opacity 1s ease;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
     }
 
     h1.visible {
       opacity: 1;
+      transform: translateY(0);
     }
 
     .buttons {
@@ -76,7 +78,15 @@
       flex-direction: row;
       justify-content: center;
       gap: clamp(10px, 5vw, 40px);
-      margin-top: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .buttons.visible {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .buttons button {
@@ -99,7 +109,7 @@
     }
 
     .buttons button.inactive {
-      display: none; /* Oculta el botón después de presionar "Sí" */
+      display: none;
     }
 
     /* Corazones animados */
@@ -166,17 +176,14 @@
     /* Estilos para móviles */
     @media (max-width: 768px) {
       h1 {
-        margin-top: 0;
         margin-bottom: 20px;
-        font-size: 6vw; /* Ajuste del tamaño del texto en móviles */
       }
 
       .buttons {
-        display: flex;
         position: absolute;
-        bottom: 5%; /* Coloca los botones justo por encima del borde inferior */
+        bottom: 5%;
         width: 100%;
-        justify-content: space-around; /* Botones distribuidos horizontalmente */
+        justify-content: space-around;
       }
     }
   </style>
@@ -222,7 +229,7 @@
 
       // Mostrar los botones después del mensaje
       setTimeout(() => {
-        buttons.style.display = 'flex';
+        buttons.classList.add('visible');
       }, photos.length * 1000 + 1500);
 
       // Si presiona "Sí"
